@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ballers - Checkers Game</title>
+    <style>
+        body {
+            margin: 0;
+            min-height: 100vh;
+            background: #1a1a2e;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            color: white;
+        }
+        .game-container {
+            display: flex;
+            margin: auto;
+            gap: 40px;
+            align-items: flex-start;
+            padding: 20px;
+        }
+        .board {
+            display: grid;
+            grid-template-columns: repeat(8, 80px);
+            grid-template-rows: repeat(8, 80px);
+            gap: 0;
+            border: 4px solid #444;
+            background: #444;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+        }
+        .cell {
+            width: 80px;
+            height: 80px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+        .cell.white {
+            background: #e8e8e8;
+        }
+        .cell.black {
+            background: #222;
+        }
+        .cell.possible-move::after {
+            content: '';
+            position: absolute;
+            width: 24px;
+            height: 24px;
+            background: rgba(0, 255, 0, 0.4);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 2;
+        }
+        .cell.capture-move::after {
+            content: '';
+            position: absolute;
+            width: 24px;
+            height: 24px;
+            background: rgba(255, 0, 0, 0.4);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 2;
+        }
+        .piece {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            cursor: grab;
+            transition: transform 0.2s;
+            position: relative;
+            z-index: 1;
+        }
+        .piece.red {
+            background: radial-gradient(circle at 30% 30%, #ff4444, #cc0000);
+            border: 3px solid #ff6666;
+            box-shadow: 0 4px 8px rgba(255, 0, 0, 0.3);
+        }
+        .piece.black {
+            background: radial-gradient(circle at 30% 30%, #444444, #000000);
+            border: 3px solid #666666;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+        }
+        .piece.king::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 40px;
+            height: 40px;
+            background: 
+                linear-gradient(90deg, transparent 45%, currentColor 45%, currentColor 55%, transparent 55%),
+                linear-gradient(0deg, transparent 45%, currentColor 45%, currentColor 55%, transparent 55%);
+            z-index: 2;
+        }
+        .piece.red.king::before {
+            color: #ff9999;
+        }
+        .piece.black.king::before {
+            color: #999999;
+        }
+        .piece:hover {
+            transform: scale(1.1);
+        }
+        .piece.dragging {
+            opacity: 0.5;
+        }
+        .info-panel {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 15px;
+            min-width: 250px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .timer {
+            font-size: 3.5rem;
+            text-align: center;
+            margin-bottom: 20px;
+            font-weight: bold;
+            color: #00ff00;
+            font-family: 'Courier New', monospace;
+            text-shadow: 0 0 10px rgba(0, 255, 0, 0.3);
+        }
+        .timer.warning {
+            color: #ff0000;
+            animation: pulse 1s infinite;
+        }
+        .turn-indicator {
+            text-align: center;
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: #ffffff;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        .back-button {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            padding: 10px 20px;
+            background: #0077cc;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-family: Arial, sans-serif;
+            transition: background 0.3s, transform 0.2s;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+        .back-button:hover {
+            background: #005fa3;
+            transform: translateY(-2px);
+        }
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <a href="/" class="back-button">← Back to Menu</a>
+    <div class="game-container">
+        <div class="board" id="board"></div>
+        <div class="info-panel">
+            <div class="timer" id="timer">10.0</div>
+            <div class="turn-indicator" id="turnIndicator">Your Turn</div>
+        </div>
+    </div>
+    <script src="ballers.js"></script>
+</body>
+</html>
