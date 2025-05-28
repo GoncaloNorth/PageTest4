@@ -1,0 +1,25 @@
+{
+  "version": 2,
+  "routes": [
+    {
+      "src": "/snake",
+      "dest": "/snake/index.html"
+    },
+    {
+      "src": "/pong",
+      "dest": "/pong/index.html"
+    },
+    {
+      "src": "/ballers",
+      "dest": "/ballers/index.html"
+    },
+    {
+      "src": "/bouncing",
+      "dest": "/bouncing/index.html"
+    },
+    {
+      "src": "/",
+      "dest": "/index.html"
+    }
+  ]
+}
